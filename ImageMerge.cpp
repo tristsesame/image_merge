@@ -24,11 +24,11 @@ static std::vector<FrameData> g_vec_frame_data;
 static std::vector<bool> g_vec_frame_available;
 static std::map<std::string,int> g_map_channel;
 
-//¼ÇÂ¼ÏÂ±³¾°Í¼´óĞ¡£¬¼´channel 0 Í¼Ïñ´óĞ¡
+//è®°å½•ä¸‹èƒŒæ™¯å›¾å¤§å°ï¼Œå³channel 0 å›¾åƒå¤§å°
 static int background_width;
 static int background_height;
 
-//ÓÃÓÚ´æ·ÅĞè×ª»¯ºóµÄ´óĞ¡
+//ç”¨äºå­˜æ”¾éœ€è½¬åŒ–åçš„å¤§å°
 static std::vector<TransformFrameInfo> g_vec_frame_resample_info;
 
 static bool g_init;
@@ -39,9 +39,9 @@ static CImageProcessThread worker;
 
 
 //lock
-//ÓÃÂ·Ä³Â·Ìí¼ÓÍ¼ÏñÊ¹ÓÃ
+//ç”¨è·¯æŸè·¯æ·»åŠ å›¾åƒä½¿ç”¨
 static base::Lock	img_process_lock;
-//Ä³Â·ÉèÖÃÊ±Ê¹ÓÃ
+//æŸè·¯è®¾ç½®æ—¶ä½¿ç”¨
 static base::Lock	multi_channel_set_lock;
 
 void image_merge_init()
@@ -90,28 +90,6 @@ void image_merge_init()
 	g_out_buffer_format = nullptr;
 	g_pFrame_format_I420 = nullptr;
 	g_pFrame_format_RGB24 = nullptr;
-
-
-#ifdef DEBUG_LOG_FILE
-	TCHAR szDir[512];
-	GetModuleFileName(0, szDir, 513);
-	int i;
-	i = lstrlen(szDir) - 1;
-	while (i > 0)
-	{
-		if (szDir[i] == _T('\\'))
-		{
-			szDir[i] = 0;
-			break;
-		}
-		i--;
-	}
-
-	swprintf_s(szDir, _T("%s\\ybmerge_debug.log"), szDir);
-	file_path = szDir;
-	m_of = new std::ofstream(file_path);
-#endif
-
 }
 
 void image_merge_uninit()
@@ -196,7 +174,7 @@ std::vector<int> GetChannelUsed()
 	return vec_channel;
 }
 
-//ÊÇ·ñ¶àÈËÁ¬Âó
+//æ˜¯å¦å¤šäººè¿éº¦
 bool IsMultiUserOnline()
 {
 	for (int i = 1; i < MAX_CHANNELS; i++)
@@ -236,7 +214,7 @@ bool  image_merge_set_channel_by_name(const char* channel_name, bool bValid)
 #endif
 	base::AutoLock al(multi_channel_set_lock);
 
-	//Èç¹ûbValidÎª true, ½¨Á¢´ËÌõÍ¨µÀ£¬·ñÔòÉ¾³ı map ÖĞ channel_name
+	//å¦‚æœbValidä¸º true, å»ºç«‹æ­¤æ¡é€šé“ï¼Œå¦åˆ™åˆ é™¤ map ä¸­ channel_name
 	if (g_map_channel.find(channel_name) == g_map_channel.end())
 	{
 		if (bValid)
