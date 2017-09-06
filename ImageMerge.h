@@ -1,10 +1,10 @@
 /** 
-* @ImageMergeÄ£¿é
+* @ImageMergeæ¨¡å—
 * @author trist
 * @date 2017/05/16
 * @description
-* ¶àÂ·Í¼ÏñºÏ³É´¦ÀíÄ£¿é
-* ×¢Òâ£¬´ËÄ£¿éÖ»Ö§³Örgb24µÄÍ¼Ïñ,²»Ö§³ÖÆäËü¸ñÊ½¡£
+* å¤šè·¯å›¾åƒåˆæˆå¤„ç†æ¨¡å—
+* æ³¨æ„ï¼Œæ­¤æ¨¡å—æ”¯æŒrgb24,yuv420çš„å›¾åƒ,ä¸æ”¯æŒå…¶å®ƒæ ¼å¼ã€‚
 */
 
 #ifndef __IMAGE_MERGE__
@@ -21,71 +21,71 @@
 #define LIB_IMAGE_MERGE_API
 #endif
 
-//³õÊ¼»¯
+//åˆå§‹åŒ–
 extern "C" LIB_IMAGE_MERGE_API void	image_merge_init();
 
-//·´³õÊ¼»¯
+//ååˆå§‹åŒ–
 extern "C" LIB_IMAGE_MERGE_API void	image_merge_uninit();
 
 /**
-* ÖØÖÃ±³¾°Í¼´óĞ¡£¨µ×Í¼´óĞ¡£©background
-* Ê¹ÓÃbackground(channel id 0) Í¨µÀµÄÍ¼Ïñ´óĞ¡,½«Æä´óĞ¡ÉèÖÃÎª±³¾°´óĞ¡¡£
-* ÓÃÓÚbackgroundÖĞÍ¾±ä»¯µÄÇé¿ö
+* é‡ç½®èƒŒæ™¯å›¾å¤§å°ï¼ˆåº•å›¾å¤§å°ï¼‰background
+* ä½¿ç”¨background(channel id 0) é€šé“çš„å›¾åƒå¤§å°,å°†å…¶å¤§å°è®¾ç½®ä¸ºèƒŒæ™¯å¤§å°ã€‚
+* ç”¨äºbackgroundä¸­é€”å˜åŒ–çš„æƒ…å†µ
 */
 extern "C" LIB_IMAGE_MERGE_API void image_merge_reset_background_size();
 
 /**
-*ÉèÖÃÄ³Â·Í¼Ïñ´ò¿ª»¹ÊÇ¹Ø±Õ.
-*param[in] channel ÓĞĞ§Öµ0-8, 0±ØĞëÓĞ£¬×÷Îªbackground
-*param[in] bValid true±íÊ¾´ò¿ª,falseÎª¹Ø±Õ.ÈôÉèÖÃÎªfalse,ÈÏÎª´ËÂ·Í¨µÀÒÑ¹Ø±Õ
+*è®¾ç½®æŸè·¯å›¾åƒæ‰“å¼€è¿˜æ˜¯å…³é—­.
+*param[in] channel æœ‰æ•ˆå€¼0-8, 0å¿…é¡»æœ‰ï¼Œä½œä¸ºbackground
+*param[in] bValid trueè¡¨ç¤ºæ‰“å¼€,falseä¸ºå…³é—­.è‹¥è®¾ç½®ä¸ºfalse,è®¤ä¸ºæ­¤è·¯é€šé“å·²å…³é—­
 */
 extern "C" LIB_IMAGE_MERGE_API bool    image_merge_set_channel(unsigned int channel, bool bValid);
 
 /**
-*ÉèÖÃÄ³Â·Í¼ÏñÊôĞÔ
-*param[in] channel ÓĞĞ§Öµ0-8
-*param[in] width Í¼Ïñ¿í¶È
-*param[in] height Í¼Ïñ¸ß¶È
-*param[in] isI420orRGB24 Í¼Ïñ¸ñÊ½,isI420orRGB24, 0:RGB24, 1:YUV I420 
+*è®¾ç½®æŸè·¯å›¾åƒå±æ€§
+*param[in] channel æœ‰æ•ˆå€¼0-8
+*param[in] width å›¾åƒå®½åº¦
+*param[in] height å›¾åƒé«˜åº¦
+*param[in] isI420orRGB24 å›¾åƒæ ¼å¼,isI420orRGB24, 0:RGB24, 1:YUV I420 
 */
 extern "C" LIB_IMAGE_MERGE_API bool    image_merge_set_image_property(unsigned int channel, int width, int height);
 
 /**
-*ÉèÖÃÄ³Â·Í¼Ïñ´ò¿ª»¹ÊÇ¹Ø±Õ.
-*param[in] channel_name, ¿ÉÈÎÒâÉèÖÃÓÃ×Ö·û´®±íÊ¾µÄÃû×Ö£¬ÄÚ²¿½«×Ô¶¯×ª»»Îªid. ÈôÎŞ¿ÕÏĞidÖµ£¨0-8£©£¬Ôò´Ëº¯ÊıÉèÖÃÎŞĞ§
-*                         ÒòÎªchannel±ØĞëÓĞ0, ¶ÔÓ¦µÄnameÃûÎª"background",ËùÒÔ±ØĞëÓĞchannel_nameÎª"background"µÄÒ»Â·Í¼Ïñ´æÔÚ¡£
-*param[in] bValid true±íÊ¾´ò¿ª,falseÎª¹Ø±Õ.ÈôÉèÖÃÎªfalse,ÈÏÎª´ËÂ·Í¨µÀÒÑ¹Ø±Õ
+*è®¾ç½®æŸè·¯å›¾åƒæ‰“å¼€è¿˜æ˜¯å…³é—­.
+*param[in] channel_name, å¯ä»»æ„è®¾ç½®ç”¨å­—ç¬¦ä¸²è¡¨ç¤ºçš„åå­—ï¼Œå†…éƒ¨å°†è‡ªåŠ¨è½¬æ¢ä¸ºid. è‹¥æ— ç©ºé—²idå€¼ï¼ˆ0-8ï¼‰ï¼Œåˆ™æ­¤å‡½æ•°è®¾ç½®æ— æ•ˆ
+*                         å› ä¸ºchannelå¿…é¡»æœ‰0, å¯¹åº”çš„nameåä¸º"background",æ‰€ä»¥å¿…é¡»æœ‰channel_nameä¸º"background"çš„ä¸€è·¯å›¾åƒå­˜åœ¨ã€‚
+*param[in] bValid trueè¡¨ç¤ºæ‰“å¼€,falseä¸ºå…³é—­.è‹¥è®¾ç½®ä¸ºfalse,è®¤ä¸ºæ­¤è·¯é€šé“å·²å…³é—­
 */
 extern "C" LIB_IMAGE_MERGE_API bool    image_merge_set_channel_by_name(const char* channel_name, bool bValid);
 
 /**
-*ÉèÖÃÄ³Â·Í¼ÏñÊôĞÔ
-*param[in] channel_name, ¿ÉÈÎÒâÉèÖÃÓÃ×Ö·û´®±íÊ¾µÄÃû×Ö£¬ÄÚ²¿½«×Ô¶¯×ª»»Îªid. ÈôÎŞ¿ÕÏĞidÖµ£¨0-8£©£¬Ôò´Ëº¯ÊıÉèÖÃÎŞĞ§
-*param[in] width Í¼Ïñ¿í¶È
-*param[in] height Í¼Ïñ¸ß¶È
+*è®¾ç½®æŸè·¯å›¾åƒå±æ€§
+*param[in] channel_name, å¯ä»»æ„è®¾ç½®ç”¨å­—ç¬¦ä¸²è¡¨ç¤ºçš„åå­—ï¼Œå†…éƒ¨å°†è‡ªåŠ¨è½¬æ¢ä¸ºid. è‹¥æ— ç©ºé—²idå€¼ï¼ˆ0-8ï¼‰ï¼Œåˆ™æ­¤å‡½æ•°è®¾ç½®æ— æ•ˆ
+*param[in] width å›¾åƒå®½åº¦
+*param[in] height å›¾åƒé«˜åº¦
 */
 extern "C" LIB_IMAGE_MERGE_API bool    image_merge_set_image_property_by_name(const char * channel_name, int width, int height);
 
 /**
-*ÍùÄ³Â·Ôö¼ÓÍ¼Ïñ
-*param[in] channel ÓĞĞ§Öµ0-8 ÈôÎŞ¿ÕÏĞidÖµ£¨0-8£©ÔòÎŞĞ§
-*param[in] data Í¼ÏñµÄµãÕóÊı¾İ(rgb24 or yuv i420)
-#param[in] isI420orRGB24 Í¼Ïñ¸ñÊ½, true:yuv i420, false:rgb24
+*å¾€æŸè·¯å¢åŠ å›¾åƒ
+*param[in] channel æœ‰æ•ˆå€¼0-8 è‹¥æ— ç©ºé—²idå€¼ï¼ˆ0-8ï¼‰åˆ™æ— æ•ˆ
+*param[in] data å›¾åƒçš„ç‚¹é˜µæ•°æ®(rgb24 or yuv i420)
+#param[in] isI420orRGB24 å›¾åƒæ ¼å¼, true:yuv i420, false:rgb24
 */
 extern "C" LIB_IMAGE_MERGE_API void	image_merge_add_image(unsigned int channel, const char *data, int size, bool isI420orRGB24 = false);
 
 /**
-*ÍùÄ³Â·Ôö¼ÓÍ¼Ïñ
-*param[in] channel_name, ¿ÉÈÎÒâÉèÖÃÓÃ×Ö·û´®±íÊ¾µÄÃû×Ö£¬ÄÚ²¿½«×Ô¶¯×ª»»Îªid. ÈôÎŞ¿ÕÏĞidÖµ£¨0-8£©£¬Ôò´Ëº¯ÊıÉèÖÃÎŞĞ§
-*param[in] data Í¼ÏñµÄµãÕóÊı¾İ(rgb24 or yuv i420)
-#param[in] isI420orRGB24 Í¼Ïñ¸ñÊ½, true:yuv i420, false:rgb24
+*å¾€æŸè·¯å¢åŠ å›¾åƒ
+*param[in] channel_name, å¯ä»»æ„è®¾ç½®ç”¨å­—ç¬¦ä¸²è¡¨ç¤ºçš„åå­—ï¼Œå†…éƒ¨å°†è‡ªåŠ¨è½¬æ¢ä¸ºid. è‹¥æ— ç©ºé—²idå€¼ï¼ˆ0-8ï¼‰ï¼Œåˆ™æ­¤å‡½æ•°è®¾ç½®æ— æ•ˆ
+*param[in] data å›¾åƒçš„ç‚¹é˜µæ•°æ®(rgb24 or yuv i420)
+#param[in] isI420orRGB24 å›¾åƒæ ¼å¼, true:yuv i420, false:rgb24
 */
 extern "C" LIB_IMAGE_MERGE_API void	image_merge_add_image_by_name(const char * channel_name, const char *data, int size, bool isI420orRGB24 = false);
 
 /**
-*È¡µÃµ±Ç°ºÏ²¢ºÃµÄÍ¼Ïñ
-*param[in] image Ğè»ñÈ¡µÄÊä³öµÄÍ¼Ïñ´óĞ¡,Èô·ÖÅä¿Õ¼ä²»×ã,ÔòÊ§°Ü.
-*param[in] image_len »ñÈ¡Í¼ÏñÖµµÄ´óĞ¡
+*å–å¾—å½“å‰åˆå¹¶å¥½çš„å›¾åƒ
+*param[in] image éœ€è·å–çš„è¾“å‡ºçš„å›¾åƒå¤§å°,è‹¥åˆ†é…ç©ºé—´ä¸è¶³,åˆ™å¤±è´¥.
+*param[in] image_len è·å–å›¾åƒå€¼çš„å¤§å°
 */
 extern "C" LIB_IMAGE_MERGE_API bool	image_merge_get_merged_image(char **image, int * image_len);
 
